@@ -1,0 +1,50 @@
+.EnvironmentPendulum {
+  display: flex;
+
+  @media only screen and (orientation: landscape) {
+    flex-direction: row;
+  }
+
+  @media only screen and (orientation: portrait) {
+    flex-direction: column;
+  }
+
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.joystick_container {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 00px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3em;
+
+  .score {
+    padding: 16px;
+  }
+}
+
+.pendulum_image {
+  aspect-ratio: 1;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.pendulum_image_container {
+  @media only screen and (orientation: landscape) {
+    height: 100%;
+    max-height: 500px;
+  }
+
+  @media only screen and (orientation: portrait) {
+    width: 100%;
+    max-width: 500px;
+  }
+}

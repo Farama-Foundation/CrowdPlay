@@ -1,0 +1,63 @@
+.TV {
+  z-index: 1;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+
+  img {
+    display: none;
+  }
+
+  .state-info {
+    text-align: center;
+    color: white;
+    font-size: 32px;
+
+    h1,
+    h2 {
+      color: white;
+    }
+  }
+
+  .frame,
+  .viewport,
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .frame {
+    background: #222;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  .viewport {
+    position: relative;
+    background: linear-gradient(135deg, #4c4c4c 0%, #2c2c2c 46%, #2b2b2b 53%, #333333 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .SvgText {
+      position: absolute;
+      font-size: 50%;
+      text-align: center;
+      fill: white;
+      top: 0;
+    }
+  }
+
+  .stand {
+    width: 50%;
+    height: .6em;
+    background: #333;
+    margin: 0 auto;
+  }
+}
+
+.TVContainer {
+  .flex-space-between {
+    margin-top: 16px;
+  }
+}

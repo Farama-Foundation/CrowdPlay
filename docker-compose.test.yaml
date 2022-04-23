@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  backend:
+    image: crowdplay-api-test
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+
+  frontend:
+    image: crowdplay-ui-test
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.test

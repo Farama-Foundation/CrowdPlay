@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 160
+filename = crowdplay_backend/*
+exclude = crowdplay_backend/web/,crowdplay_backend/checkpoint/,__pycache__,*.egg_info,.*
+max-complexity = 10
+ignore = F401,W503,E203,C901

@@ -1,0 +1,3 @@
+Host github.com
+  Preferredauthentications publickey
+  IdentityFile ~/.ssh/secret_key

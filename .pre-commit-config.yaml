@@ -1,0 +1,19 @@
+repos:
+- repo: https://github.com/psf/black
+  rev: stable
+  hooks:
+  - id: black
+    language_version: python3.7
+    args: [--line-length=120]
+- repo: https://gitlab.com/pycqa/flake8
+  rev: ''
+  hooks:
+  - id: flake8
+    args: [--config=backend/.flake8]
+- repo: local
+  hooks:
+  - id: eslint
+    name: eslint
+    language: system
+    entry: bash -c 'cd frontend && npm run lint'
+    pass_filenames: false

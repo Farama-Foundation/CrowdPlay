@@ -1,0 +1,32 @@
+__pycache__/
+node_modules/
+dist/
+data/
+.vscode/
+.ipynb_checkpoints/
+*.sqlite*
+.DS_Store
+.python-version
+.env*
+.idea/
+offline/output/
+secret_key
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# Pip files
+*.egg-info
+
+# Data downloaded from DB
+dataset/data/
+dataset/data
+dataset/data.*
+
+# Pre-built frontend
+backend/crowdplay_backend/web
+
+# Backend ROM files
+backend/ROM

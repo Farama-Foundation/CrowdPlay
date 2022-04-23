@@ -1,0 +1,73 @@
+version: "3"
+
+services:
+
+  storage:
+    image: crowdplay-db-dev
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: crowdplaydb
+      MYSQL_USER: crowdplayuser
+      MYSQL_PASSWORD: userpassword
+    build: ./storage
+    volumes:
+      - ./data/mysql-dev:/var/lib/mysql
+    networks:
+      - backend-network
+    ports:
+      - 3306:3306
+      - 33060:33060
+
+  backend:
+    image: crowdplay-api-dev
+    environment:
+      APP_SETTINGS: crowdplay_backend.config.Config
+      SECRET_KEY: Super secret key!
+      APP_HOST: 0.0.0.0
+      APP_PORT: 5000
+      DATABASE_URI: mysql+pymysql://crowdplayuser:userpassword@storage/crowdplaydb
+      MYSQL_DATABASE: crowdplaydb
+      MYSQL_USER: crowdplayuser
+      MYSQL_PASSWORD: userpassword
+      MYSQL_HOST: storage
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.vscode
+    command:
+      [
+        "sh",
+        "-c",
+        "DISPLAY=:0 pip install debugpy -t /tmp && xvfb-run -n0 python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m crowdplay_backend"
+      ]
+    volumes:
+      - ./backend/crowdplay_backend:/usr/src/crowdplay/crowdplay_backend
+    depends_on:
+      - storage
+    ports:
+      - 5000:5000
+      - 5678:5678
+    networks:
+      - backend-network
+      - frontend-network
+
+  frontend:
+    image: crowdplay-ui-dev
+    environment:
+      DEV_HOST: 0.0.0.0
+      DEV_PORT: 9000
+      PROXY_TARGET: http://backend:5000
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/src:/usr/src/crowdplay/src
+    depends_on:
+      - backend
+    ports:
+      - 9000:9000
+    networks:
+      - frontend-network
+
+networks:
+  backend-network:
+  frontend-network:

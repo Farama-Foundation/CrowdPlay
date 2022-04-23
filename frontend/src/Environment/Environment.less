@@ -1,0 +1,79 @@
+@import "../styles/utils.less";
+
+.Environment:extend(.flex-center) {
+  .tv {
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+
+    img {
+      display: none;
+    }
+  }
+
+  .tv-frame,
+  .tv-viewport,
+  .tv img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .tv-frame {
+    background: #222;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  .tv-viewport {
+    background: linear-gradient(135deg, #4c4c4c 0%, #2c2c2c 46%, #2b2b2b 53%, #333333 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tv-stand {
+    width: 50%;
+    height: .6em;
+    background: #333;
+    margin: 0 auto;
+  }
+
+  .observation-info {
+    width: 400px;
+    // min-width: 200px;
+    // max-width: 600px;
+
+    // TODO: make the list nicer
+    ul {}
+  }
+
+  .instructions {
+    margin-top: 32px;
+  }
+}
+
+
+.envstate_overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .state_info {
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  .countdown_number {
+    justify-content: center;
+    display: flex;
+    font-size: xx-large;
+  }
+}

@@ -1,0 +1,27 @@
+atari-py==0.2.6
+# boto3==1.17.27
+Flask==2.1.1
+itsdangerous == 2.0.1
+Flask-SQLAlchemy==2.5.1
+cryptography==3.3.1
+gym[atari]==0.21.0
+opencv-python==4.4.0.46
+SQLAlchemy==1.4.35
+uuid==1.30
+flasgger==0.9.5
+Flask-SocketIO==5.1.1
+eventlet==0.33.0
+PyMySQL==1.0.2
+python-dotenv==0.15.0
+xmltodict==0.12.0
+ray[rllib]==1.11.0
+multi-agent-ale-py==0.1.11
+AutoROM==0.1.18
+opencv-python==4.4.0.46
+pygame==2.0.0
+tensorflow==2.3.1
+mysql-connector-python==8.0.28
+Jinja2==3.1.1
+werkzeug==2.1.1
+PyOpenGL==3.1.6
+pyglet==1.5.23

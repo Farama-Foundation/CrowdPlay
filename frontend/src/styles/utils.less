@@ -1,0 +1,41 @@
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.display-block {
+  display: block !important;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px 50px;
+}
+
+// TODO: mixin, turn gutter into an argument
+.grid {
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    display: flex;
+    flex: 1;
+
+    margin-bottom: 16px;
+    &:last-child { margin-bottom: 0; }
+
+    > * { 
+      margin-right: 16px;
+      &:last-child { margin-right: 0 }
+    }
+  }
+}

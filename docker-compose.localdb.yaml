@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+
+  storage:
+    image: crowdplay-db-dev
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: crowdplaydb
+      MYSQL_USER: crowdplayuser
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    build: ./storage
+    volumes:
+      - ./data/mysql-dev:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - backend-network
+
+  backend:
+    image: crowdplay-api-aws
+    environment:
+      APP_SETTINGS: crowdplay_backend.config.ConfigProd
+      APP_HOST: 0.0.0.0
+      APP_PORT: 5000
+      DATABASE_URI: mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@storage/${MYSQL_DATABASE}
+      MYSQL_DATABASE: crowdplaydb
+      MYSQL_USER: crowdplayuser
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: storage
+    build: ./backend
+    depends_on:
+      - storage
+    ports:
+      - 5000:5000
+    networks:
+      - backend-network
+      - frontend-network
+
+  frontend:
+    image: crowdplay-ui-aws
+    environment:
+      NGINX_PORT: 8080
+      PROXY_TARGET: http://backend:5000
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - 80:8080
+    networks:
+      - frontend-network
+
+networks:
+  backend-network:
+  frontend-network:

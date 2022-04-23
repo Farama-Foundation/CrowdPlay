@@ -1,0 +1,5 @@
+include README.md
+include crowdplay_datasets/*.py
+include scripts/*.sh
+include examples/example.py
+include examples/examples.ipynb

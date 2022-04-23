@@ -1,0 +1,64 @@
+name: AWS Environment Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      env_name:
+        description: Environment name for AWS
+        required: true
+        default: Ataricrowdsourcing-env
+
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install EB cli
+        run: |
+          python -m pip install --upgrade pip
+          pip install awsebcli
+          eb --version
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Prepare envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          envkey_MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          envkey_MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          envkey_MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          envkey_MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          envkey_MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          file_name: .env
+      
+      - name: SSH secret key to file
+        run: |
+          echo "${{ secrets.SSH_SECRET_KEY }}" > backend/ssh/secret_key
+
+      - name: Initialize EB application
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          eb init -p docker -r $AWS_REGION crowdplay
+      
+      - name: Create EB environment
+        run: |
+          eb create ${{ github.event.inputs.env_name }} --instance_type t2.xlarge --elb-type application
+
+      - name: Deploy app
+        run: |
+          eb deploy ${{ github.event.inputs.env_name }} --label "app-${GITHUB_SHA:0:12}" --timeout 20

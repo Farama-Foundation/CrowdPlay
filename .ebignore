@@ -1,0 +1,17 @@
+dev
+backend/tests
+frontend/node_modules
+frontend/dist
+data
+docker-compose.*.yaml
+README.md
+start_app.sh
+requirements-dev.txt
+.editorconfig
+.github
+.pre-commit-config.yaml
+.git
+.gitignore
+.vscode
+.env.*
+dataset/

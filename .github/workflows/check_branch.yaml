@@ -1,0 +1,38 @@
+name: Check Branch Health
+
+on: workflow_dispatch
+
+jobs:
+  check-app:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      
+      - name: Prepare envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          envkey_MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          envkey_MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          envkey_MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          envkey_MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          envkey_MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          file_name: .env
+      
+      - name: SSH secret key to file
+        run: |
+          echo "${{ secrets.SSH_SECRET_KEY }}" > backend/ssh/secret_key
+      
+      - name: Build app
+        run: |
+          docker-compose -f docker-compose.test.yaml build
+      
+      - name: Lint & Test backend
+        run: |
+          docker-compose -f docker-compose.test.yaml run backend
+      
+      - name: Lint & Test frontend
+        run: |
+          docker-compose -f docker-compose.test.yaml run frontend

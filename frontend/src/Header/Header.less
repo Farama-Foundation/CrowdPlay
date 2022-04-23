@@ -1,0 +1,38 @@
+@import "../styles/utils.less";
+
+.Header {
+  display: flex;
+  align-items: center;
+
+  .title {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: flex-start;
+    color: white !important;
+    margin: 0 !important;
+
+    @media only screen and (orientation: portrait) {
+      font-size: large;
+    }
+  }
+
+  .buttonsdiv {
+    display: flex;
+    flex: 0 0 50%;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.buttonspace {
+  height: 100%;
+
+  .ant-space-item {
+    height: 100%;
+  }
+}
+
+.button {
+  margin: 0px;
+}

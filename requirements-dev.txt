@@ -1,0 +1,6 @@
+autopep8==1.5.4
+flake8==3.8.4
+jupyter=1.0.0
+pre-commit==2.9.3
+python-dotenv==0.15.0
+rq-dashboard==0.6.1
