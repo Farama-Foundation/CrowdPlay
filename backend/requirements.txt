@@ -25,3 +25,4 @@ Jinja2==3.1.1
 werkzeug==2.1.1
 PyOpenGL==3.1.6
 pyglet==1.5.23
+importlib-metadata==4.13.0
