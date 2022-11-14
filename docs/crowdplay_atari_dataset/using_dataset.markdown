@@ -61,4 +61,67 @@ It is possible to calculate metadata offline as well, and `data_analysis/data_an
 
 ### Integrating Into Offline Learning Pipelines
 
-We provide a sample implementation of integrating the CrowdPlay Atari dataset into offline learning algorithms through the D3RL package in `offline/offline_atari.py`. This script can also be used to recreate the benchmarks in the CrowdPlay paper.
+The CrowdPlay dataset integrates easily into downstream offline learning pipelines such as [d3rlpy](https://github.com/takuseno/d3rlpy). As a minimal end to end example of using d3rlpy to train an agent on the CrowdPlay Atari dataset, consider the following script:
+
+```python
+    import d3rlpy
+    import numpy as np
+    from crowdplay_datasets.dataset import (
+        EnvironmentModel,
+        EpisodeKeywordDataModel,
+        EpisodeModel,
+        get_engine_and_session,
+    )
+
+    # Load all Space Invaders episodes that have score >= 50
+    _, session = get_engine_and_session("crowdplay_atari-v0")
+    episodes = (
+        session.query(EpisodeModel)
+        .filter(EnvironmentModel.environment_id == EpisodeModel.environment_id)
+        .filter(EnvironmentModel.task_id == "space_invaders")
+        .filter(EpisodeKeywordDataModel.episode_id == EpisodeModel.episode_id)
+        .filter(EpisodeKeywordDataModel.key == "Score")
+        .filter(EpisodeKeywordDataModel.value >= 50)
+        .all()
+    )
+
+    # Get Gym-formatted trajectory for each episode
+    obs, acts, rews, term = [], [], [], []
+    for episode in episodes:
+        (o,a,r,t) = ep.get_processed_trajectory(
+            framestack_axis_first=True, downsample_frequency=4, downsample_offset=0, stack_n=1
+        )
+        obs.append(np.array(o))
+        acts.append(np.array(a))
+        rews.append(np.array(r))
+        term.append(np.array(t))
+    
+    # Convert into d3rlpy dataset
+    obs = np.concatenate(obs)
+    acts = np.concatenate(acts)
+    rews = np.concatenate(rews)
+    term = np.concatenate(term)
+    input_data = d3rlpy.dataset.MDPDataset(obs, acs, rew, term)
+    train_episodes, test_episodes = train_test_split(input_data, test_size=0.1)
+
+    # Create Algorithm
+    algo = d3rlpy.algos.DiscreteBC(
+            learning_rate=3e-05,
+            n_frames=4,
+            q_func_factory="mean",
+            batch_size=256,
+            target_update_interval=2500,
+            scaler="pixel",
+            use_gpu=gpu,
+        )
+
+    # Train!
+    algo.fit(
+        train_episodes,
+        eval_episodes=test_episodes,
+        n_steps=1000000,
+        n_steps_per_epoch=1000,
+    )
+```
+
+We also provide a sample implementation of testing a variety of  dataset and algorithm combinations in `offline/offline_atari.py`. This script was used to create the benchmarks in the CrowdPlay paper.

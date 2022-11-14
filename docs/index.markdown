@@ -8,7 +8,7 @@ layout: default
 
 ## CrowdPlay: Crowdsourcing Human Demonstrations for Offline Learning
 
-Matthias Gerstgrasser, Rakshit Trivedi, David Parkes
+[Matthias Gerstgrasser](https://matthias.gerstgrasser.net/), Rakshit Trivedi, [David C. Parkes](https://parkes.seas.harvard.edu/)
 
 [Paper](https://openreview.net/pdf?id=qyTBxTztIpQ){: .btn  .mr-4}
 [Code](https://github.com/mgerstgrasser/crowdplay){: .btn  .mr-4}
