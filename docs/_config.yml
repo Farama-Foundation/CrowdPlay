@@ -22,9 +22,9 @@ title: CrowdPlay
 email: matthias@seas.harvard.edu
 description: >- # this means to ignore newlines until "baseurl:"
   A website for the CrowdPlay project.
-baseurl: "/crowdplay/" # the subpath of your site, e.g. /blog
-url: "https://mgerstgrasser.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-domain: mgerstgrasser.github.io
+baseurl: "/CrowdPlay/" # the subpath of your site, e.g. /blog
+url: "https://farama-foundation.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+domain: farama-foundation.github.io
 twitter_username: mgerstgrasser
 github_username:  mgerstgrasser
 
@@ -38,7 +38,7 @@ plugins:
 # Aux links
 aux_links:
   "CrowdPlay on GitHub":
-    - "//github.com/mgerstgrasser/crowdplay"
+    - "//github.com/Farama-Foundation/CrowdPlay"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
