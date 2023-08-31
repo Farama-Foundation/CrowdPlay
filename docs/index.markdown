@@ -13,7 +13,6 @@ layout: default
 [Paper](https://openreview.net/pdf?id=qyTBxTztIpQ){: .btn  .mr-4}
 [Code](https://github.com/mgerstgrasser/crowdplay){: .btn  .mr-4}
 [Quickstart](running_crowdplay/get_started.markdown){: .btn  .mr-4}
-[Live Demo](http://retro-videogame-study.org/){: .btn  .mr-4}
 [Dataset](crowdplay_atari_dataset/crowdplay_atari.markdown){: .btn  .mr-4}
 
 ![A screenshot of CrowdPlay in action](images/screenshot.png){:style="display:block; margin-left:auto; margin-right:auto; width:250px"}
