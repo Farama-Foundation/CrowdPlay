@@ -1,5 +1,7 @@
 # CrowdPlay: Crowdsourcing Human Demonstrations for Offline Learning
 
+**Sep 10, 2025: This project has been deprecated due to a lack of wide spread community use, and is no longer planned to receive any additional updates or support.**
+
 Matthias Gerstgrasser, Rakshit Trivedi, David Parkes
 
 * [Paper](https://openreview.net/pdf?id=qyTBxTztIpQ)
